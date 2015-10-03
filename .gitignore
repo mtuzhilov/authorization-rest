@@ -1,1 +1,40 @@
+# Eclipse
+.classpath
+*.launch
+.project
+.settings/
+.worksheet
+.factorypath
+bin/
+Worksheet.sc
+activemq-data
+
+# Intellij
+.idea/
+*.ipr
+*.iml
+*.iws
+atlassian-ide-plugin.xml
+
+# Java
+hs_err_pid*
+
+# MAC
 .DS_Store
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.next
+release.properties
+.checkstyle
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+# VI
+*.swp
+secmgr.pid
+application.pid
