@@ -1,24 +1,39 @@
-package authorization.dto;
+package authorization.entity;
 
-import authorization.entity.Address;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-public class AddressDTO {
+@Entity
+public class Address {
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private long id;
+
   private String street1;
   private String street2;
   private String city;
   private String state;
   private int postalCode;
 
-  public void fromDomain(Address address) {
-    this.street1 = address.getStreet1();
-    this.street2 = address.getStreet2();
-    this.city = address.getCity();
-    this.state = address.getState();
-    this.postalCode = address.getPostalCode();
+
+  protected Address() {};
+
+  public Address(String street1, String street2, String city, String state, int postalCode) {
+    this.street1 = street1;
+    this.street2 = street2;
+    this.city = city;
+    this.state = state;
+    this.postalCode = postalCode;
   }
 
-  public Address toDomain() {
-    return new Address(street1, street2, city, state, postalCode);
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
   }
 
   public String getStreet1() {

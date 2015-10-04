@@ -15,33 +15,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import authorization.dto.AuthorizationDTO;
-import authorization.dto.SubjectDTO;
-import authorization.entity.Subject;
-import authorization.repository.SubjectRepository;
+import authorization.entity.Authorization;
+import authorization.repository.AuthorizationRepository;
 
 @Component
 @Path("/authorization")
 public class AuthorizationResourse {
 
   @Autowired
-  private SubjectRepository subjectRepository;
+  private AuthorizationRepository authorizationRepository;
 
   @POST
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   public AuthorizationDTO create(AuthorizationDTO dto) {
-
-    return null;
+    Authorization authorization = authorizationRepository.save(dto.toDomain());
+    AuthorizationDTO authorizationDTO = new AuthorizationDTO();
+    authorizationDTO.fromDomain(authorization);
+    return authorizationDTO;
   }
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   public List<AuthorizationDTO> getAll() {
-
     List<AuthorizationDTO> list = new ArrayList<>();
-    for (Subject subject : subjectRepository.findAll()) {
+    for (Authorization authorization : authorizationRepository.findAll()) {
       AuthorizationDTO dto = new AuthorizationDTO();
-      dto.setSubject(new SubjectDTO(subject));
+      dto.fromDomain(authorization);
       list.add(dto);
     }
     return list;

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Subject {
@@ -12,12 +13,17 @@ public class Subject {
   private long id;
   private String firstName;
   private String lastName;
+  private int age;
+  @OneToOne
+  private Address address;
 
   protected Subject() {}
 
-  public Subject(String firstName, String lastName) {
+  public Subject(String firstName, String lastName, int age, Address address) {
     this.firstName = firstName;
     this.lastName = lastName;
+    this.address = address;
+    this.age = age;
   }
 
 
@@ -37,9 +43,27 @@ public class Subject {
     this.lastName = lastName;
   }
 
-  @Override
-  public String toString() {
-    return String.format("Customer[id=%d, firstName='%s', lastName='%s']", id, firstName, lastName);
+  public int getAge() {
+    return age;
   }
 
+  public void setAge(int age) {
+    this.age = age;
+  }
+
+  public Address getAddress() {
+    return address;
+  }
+
+  public void setAddress(Address address) {
+    this.address = address;
+  }
+
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
 }

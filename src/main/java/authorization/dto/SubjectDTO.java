@@ -8,9 +8,17 @@ public class SubjectDTO {
   private int age;
   private AddressDTO address;
 
-  public SubjectDTO(Subject subject) {
+  public void fromDomain(Subject subject) {
     this.firstName = subject.getFirstName();
     this.lastName = subject.getLastName();
+    this.age = subject.getAge();
+    AddressDTO addressDTO = new AddressDTO();
+    addressDTO.fromDomain(subject.getAddress());
+    this.address = addressDTO;
+  }
+
+  public Subject toDomain() {
+    return new Subject(firstName, lastName, age, address.toDomain());
   }
 
   public String getFirstName() {
