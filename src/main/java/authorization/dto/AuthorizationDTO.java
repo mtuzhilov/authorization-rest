@@ -1,4 +1,4 @@
-package authorization;
+package authorization.dto;
 
 public class AuthorizationDTO {
 

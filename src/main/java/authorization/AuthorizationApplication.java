@@ -12,15 +12,14 @@ import org.springframework.context.annotation.Configuration;
 @EnableAutoConfiguration
 public class AuthorizationApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(AuthorizationApplication.class, args);
-    }
-    
-    @Bean
-    public ServletRegistrationBean jerseyServlet() {
-        ServletRegistrationBean registration = new ServletRegistrationBean(new ServletContainer(), "/*");
-        registration.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, JerseyInitialization.class.getName());
-       
-        return registration;
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(AuthorizationApplication.class, args);
+  }
+
+  @Bean
+  public ServletRegistrationBean jerseyServlet() {
+    ServletRegistrationBean registration = new ServletRegistrationBean(new ServletContainer(), "/*");
+    registration.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, JerseyInitialization.class.getName());
+    return registration;
+  }
 }
