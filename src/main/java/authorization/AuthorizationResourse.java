@@ -12,12 +12,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import authorization.dto.AuthorizationDTO;
 import authorization.dto.SubjectDTO;
 import authorization.entity.Subject;
 import authorization.repository.SubjectRepository;
 
+@Component
 @Path("/authorization")
 public class AuthorizationResourse {
 
