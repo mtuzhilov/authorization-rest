@@ -2,7 +2,9 @@ package authorization.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,10 +17,10 @@ public class Authorization {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   private Subject subject;
 
-  @OneToMany
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private List<PhoneNumber> phoneNumbers;
 
   protected Authorization() {};
@@ -27,7 +29,6 @@ public class Authorization {
     this.subject = subject;
     this.phoneNumbers = phoneNumbers;
   }
-
 
 
   public long getId() {

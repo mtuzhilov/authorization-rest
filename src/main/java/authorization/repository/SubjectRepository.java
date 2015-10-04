@@ -9,6 +9,6 @@ import authorization.entity.Subject;
 
 @Repository
 public interface SubjectRepository extends CrudRepository<Subject, Long> {
-
+  List<Subject> findByFirstName(String firstName);
   List<Subject> findByLastName(String lastName);
 }

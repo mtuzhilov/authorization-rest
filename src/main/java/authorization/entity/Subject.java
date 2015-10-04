@@ -1,5 +1,6 @@
 package authorization.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +15,7 @@ public class Subject {
   private String firstName;
   private String lastName;
   private int age;
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   private Address address;
 
   protected Subject() {}

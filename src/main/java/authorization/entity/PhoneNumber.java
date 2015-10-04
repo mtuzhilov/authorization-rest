@@ -1,5 +1,6 @@
 package authorization.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,9 +20,10 @@ public class PhoneNumber {
 
   @Enumerated(EnumType.STRING)
   private PhoneType type = PhoneType.HOME;
+  @Column(name="phone_number")
   private String number;
 
-  protected PhoneNumber() {}
+  public PhoneNumber() {};
 
   public PhoneNumber(PhoneType type, String number) {
     this.type = type;
