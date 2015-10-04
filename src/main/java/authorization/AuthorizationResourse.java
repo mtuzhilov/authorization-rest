@@ -10,25 +10,25 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import authorization.dto.AuthorizationDTO;
 import authorization.entity.Authorization;
-import authorization.entity.Subject;
 import authorization.repository.AuthorizationRepository;
-import authorization.repository.SubjectRepository;
 
 @Component
+@Transactional
 @Path("/authorization")
 public class AuthorizationResourse {
 
   @Autowired
   private AuthorizationRepository authorizationRepository;
-  @Autowired
-  private SubjectRepository subjectRepository;
 
   @POST
   @Produces(MediaType.APPLICATION_JSON)
@@ -58,14 +58,8 @@ public class AuthorizationResourse {
   @Produces(MediaType.APPLICATION_JSON)
   public List<AuthorizationDTO> getByName(@PathParam("firstName") String firstName) {
 
-    List<Subject> subjects = subjectRepository.findByFirstName(firstName);
-    List<Long> ids = new ArrayList<>();
-    for (Subject subject : subjects) {
-      ids.add(subject.getId());
-    }
-
     List<AuthorizationDTO> list = new ArrayList<>();
-    for (Authorization authorization : authorizationRepository.findAll(ids)) {
+    for (Authorization authorization : authorizationRepository.findBySubjectFirstName(firstName)) {
       AuthorizationDTO dto = new AuthorizationDTO();
       dto.fromDomain(authorization);
       list.add(dto);
@@ -74,8 +68,14 @@ public class AuthorizationResourse {
   }
 
   @PUT
+  @Path("/{id}")
   @Consumes(MediaType.APPLICATION_JSON)
-  public void update(AuthorizationDTO dto) {
-
+  public void update(@PathParam("id") Long id, AuthorizationDTO dto) {
+    Authorization authorization = authorizationRepository.findOne(id);
+    if (authorization == null) {
+      throw new WebApplicationException(Response.Status.NOT_FOUND);
+    }
+    authorizationRepository.delete(authorization);
+    authorizationRepository.save(dto.toDomain());
   }
 }

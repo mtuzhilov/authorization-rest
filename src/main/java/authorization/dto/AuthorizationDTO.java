@@ -8,6 +8,7 @@ import authorization.entity.PhoneNumber;
 
 public class AuthorizationDTO {
 
+  private Long id;
   private SubjectDTO subject;
   private List<PhoneNumberDTO> phoneNumbers;
 
@@ -20,16 +21,26 @@ public class AuthorizationDTO {
       phoneNumberDTO.fromDomain(phoneNumber);
       phoneNumbers.add(phoneNumberDTO);
     }
+    this.id = authorization.getId();
     this.subject = subject;
     this.phoneNumbers = phoneNumbers;
   }
-  
-  public Authorization toDomain(){
+
+  public Authorization toDomain() {
     List<PhoneNumber> numbers = new ArrayList<>();
-    for (PhoneNumberDTO number: phoneNumbers){
+    for (PhoneNumberDTO number : phoneNumbers) {
       numbers.add(number.toDomain());
     }
     return new Authorization(this.subject.toDomain(), numbers);
+  }
+
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public SubjectDTO getSubject() {
