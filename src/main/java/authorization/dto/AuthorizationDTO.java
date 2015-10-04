@@ -2,14 +2,14 @@ package authorization.dto;
 
 public class AuthorizationDTO {
 
-  private String test;
+  private SubjectDTO subject;
 
-  public String getTest() {
-    return test;
+  public SubjectDTO getSubject() {
+    return subject;
   }
 
-  public void setTest(String test) {
-    this.test = test;
+  public void setSubject(SubjectDTO subject) {
+    this.subject = subject;
   }
 
 
